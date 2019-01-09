@@ -1,0 +1,1 @@
+This class was CIS 343, Structure of Programming Languages. This class involved exploring many different languages such as C++, C, Java, Python, Lisp, Algol and Fortran. As well as writing and researching a language of choice and writing a paper about it. The language I chose was Ruby.
