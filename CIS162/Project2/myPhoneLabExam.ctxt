@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=myPhoneLabExam
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ myPhoneLabExam\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=name\ num
+comment1.target=myPhoneLabExam(java.lang.String,\ java.lang.String)
+comment2.params=
+comment2.target=int\ getNumTexts()
+comment3.params=
+comment3.target=double\ getBatteryLife()
+comment4.params=
+comment4.target=double\ getDataUsage()
+comment5.params=n
+comment5.target=void\ setName(java.lang.String)
+comment6.params=n
+comment6.target=void\ setPhoneNumber(java.lang.String)
+comment7.params=mins
+comment7.target=void\ chargeBattery(int)
+numComments=8
