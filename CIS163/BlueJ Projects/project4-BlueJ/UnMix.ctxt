@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=UnMix
+comment1.params=
+comment1.target=UnMix()
+comment2.params=args
+comment2.target=void\ main(java.lang.String[])
+comment3.params=command
+comment3.target=java.lang.String\ processCommand(java.lang.String)
+comment4.params=filename\ userMessage
+comment4.target=void\ unMixture(java.lang.String,\ java.lang.String)
+comment5.params=userMessage
+comment5.target=void\ setInitialMessage(java.lang.String)
+comment6.params=filename\ userMessage
+comment6.target=java.lang.String\ UnMixUsingFile(java.lang.String,\ java.lang.String)
+numComments=7

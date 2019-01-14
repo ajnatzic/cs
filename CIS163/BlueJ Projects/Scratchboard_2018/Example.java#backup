@@ -1,0 +1,16 @@
+
+public class Example
+{
+   public static void sampleMethod(CoffeeService c) {
+       c.serve();
+    }
+    
+    public static void main(String args[]) {
+        Keurig k = new Keurig();
+        sampleMethod(k);
+        Nespresso n = new Nespresso();
+        sampleMethod(n);
+        SmallKeurig sk = new SmallKeurig();
+        sampleMethod(sk);
+    }
+}

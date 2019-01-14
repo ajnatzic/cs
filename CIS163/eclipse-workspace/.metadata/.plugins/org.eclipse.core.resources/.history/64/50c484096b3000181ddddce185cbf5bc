@@ -1,0 +1,143 @@
+package chess;
+
+public class ChessModel implements IChessModel {
+	private IChessPiece[][] board;
+	private final int SIZE = 8;
+	int kingRow = 0;
+	int kingCol = 0;
+	Move m;
+	private Player player;
+	
+	public ChessModel()
+	{
+		board = new ChessPiece[SIZE][SIZE];
+		player = Player.BLACK;
+		setDefaultBoard();
+		
+	}
+	public void setDefaultBoard()
+	{
+		
+		// Sets each button to a default null
+		for(int row = 0; row < SIZE; row++)
+			for(int col = 0; col < SIZE; col++)
+				board[row][col] = null;
+		
+		// Initialize the piece objects to their respective location
+		board[0][0] = new Rook(Player.BLACK);
+		board[0][1] = new Knight(Player.BLACK);
+		board[0][2] = new Bishop(Player.BLACK);
+		board[0][3] = new Queen(Player.BLACK);
+		board[0][4] = new King(Player.BLACK);
+		board[0][5] = new Bishop(Player.BLACK);
+		board[0][6] = new Knight(Player.BLACK);
+		board[0][7] = new Rook(Player.BLACK);
+		for(int col = 0; col < SIZE; col++)
+			board[1][col] = new Pawn(Player.BLACK); 
+		// Initialize the piece objects to their respective location
+		board[7][0] = new Rook(Player.WHITE);
+		board[7][1] = new Knight(Player.WHITE);
+		board[7][2] = new Bishop(Player.WHITE);
+		board[7][3] = new Queen(Player.WHITE);
+		board[7][4] = new King(Player.WHITE);
+		board[7][5] = new Bishop(Player.WHITE);
+		board[7][6] = new Knight(Player.WHITE);
+		board[7][7] = new Rook(Player.WHITE);
+		for(int col = 0; col < SIZE; col++)
+			board[6][col] = new Pawn(Player.WHITE); 
+		
+	}
+	// checks to see if someone won
+	public boolean isComplete()
+	{
+		return false;
+	}
+
+	public boolean isValidMove(Move move)
+	{
+		// Checks to see if there is a piece at the selected location
+		if(board[move.fromRow][move.fromColumn] != null)
+		{
+			// Checks to make sure the piece is making a valid move
+			if(board[move.fromRow][move.fromColumn].isValidMove(move, board) == true)
+				return true;
+		}
+		return false;
+	}
+	
+	public void move(Move move)
+	{
+		board[move.toRow][move.toColumn] = board[move.fromRow][move.fromColumn];
+		board[move.fromRow][move.fromColumn] = null;
+	}
+
+	public boolean inCheck(Player p)
+	{	
+		
+		for(int row = 0; row < SIZE; row++)
+			for(int col = 0; col < SIZE; col++)
+				if(board[row][col] != null && pieceAt(row, col).type().equalsIgnoreCase("King") && board[row][col].player() == p)
+				{
+					kingRow = row;
+					kingCol = col;
+				}
+		
+		for(int row = 0; row < SIZE; row++)
+			for(int col = 0; col < SIZE; col++)
+				if(board[row][col] != null && board[row][col].player() == nextPlayer())
+				{
+					m = new Move(row, col,kingRow,kingCol);
+					if(board[row][col].isValidMove(m, board))
+						return true;
+				}
+				
+					
+		return false;
+	}
+
+	public Player currentPlayer()
+	{
+		return player;
+	}
+	
+	public Player nextPlayer()
+	{
+		if(currentPlayer() == Player.BLACK)
+			return Player.WHITE;
+		if(currentPlayer() == Player.WHITE)
+			return Player.BLACK;
+		return null;
+	}
+	public void switchPlayer() {
+		player.next();
+	}
+	public IChessPiece pieceAt(int row, int column)
+	{
+		return board[row][column];
+	}
+	public int numRows()
+	{
+        return SIZE;
+	}
+    public int numColumns()
+    {
+        return SIZE;
+    }
+    
+    public void computerMove() {	// Step 11: Full functionality
+//    	a. Check to see if you are in check.
+    	if(currentPlayer() == Player.BLACK) {	//the computer will play as a BLACK piece
+//    		if(inCheck(Player.BLACK))
+    		
+    			
+    	}
+//    	i. If so, get out of check by moving the king or placing a piece to block the check
+//    	b. Attempt to put opponent into check (or checkmate).
+//    	i. Attempt to put opponent into check without losing your piece
+//    	ii. Perhaps you have won the game.
+//    	c. Determine if any of your pieces are in danger, or you can take their piece.
+//    	i. Take their piece OR.
+//    	ii. Attempt to protect your piece.
+//    	d. Move a piece (pawns first) forward toward opponent king
+    }
+}

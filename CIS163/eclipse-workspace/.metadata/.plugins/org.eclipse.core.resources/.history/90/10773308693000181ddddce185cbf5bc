@@ -1,0 +1,167 @@
+package chess;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.*;
+
+import javax.swing.*;
+@SuppressWarnings("serial")
+public class ChessPanel extends JPanel {
+
+	private JButton[][] board;
+	private ChessModel model;
+	
+	private ImageIcon black_king;
+	private ImageIcon black_queen;
+	private ImageIcon black_pawn;
+	private ImageIcon black_bishop;
+	private ImageIcon black_knight;
+	private ImageIcon black_rook;
+	private ImageIcon white_king;
+	private ImageIcon white_queen;
+	private ImageIcon white_pawn;
+	private ImageIcon white_bishop;
+	private ImageIcon white_knight;
+	private ImageIcon white_rook;
+	private Icon tempIcon;
+	private final int SIZE = 8;
+	private int clicks = 0;
+	int prevRow = 0;
+	int prevCol = 0;
+	Color prevColor = null;
+	
+	 public ChessPanel() {
+		 
+		 model = new ChessModel();
+	        // complete this
+		 board = new JButton[SIZE][SIZE];
+		 ButtonListener listener = new ButtonListener();
+		 setLayout(new GridLayout(8,8,1,1));
+		 black_king = new ImageIcon("Black_King.png");
+		 black_queen = new ImageIcon("Black_Queen.png");
+		 black_pawn = new ImageIcon("Black_Pawn.png");
+		 black_bishop = new ImageIcon("Black_Bishop.png");
+		 black_knight = new ImageIcon("Black_Knight.png");
+		 black_rook = new ImageIcon("Black_Rook.png");
+		 white_king = new ImageIcon("White_King.png");
+		 white_queen = new ImageIcon("White_Queen.png");
+		 white_pawn = new ImageIcon("White_Pawn.png");
+		 white_bishop = new ImageIcon("White_Bishop.png");
+		 white_knight = new ImageIcon("White_Knight.png");
+		 white_rook = new ImageIcon("White_Rook.png");
+		    
+		   
+
+		 
+		 for(int row = 0; row < SIZE; row++)	{
+			 for(int col = 0; col < SIZE; col++) {
+				 // checks if it is on an even row AND an even column. 
+				 // also checks if it is on an odd column AND an odd row. 
+				 if ((row % 2 == 0 && col % 2 == 0) || (col % 2 != 0 && row % 2 != 0)) {
+					 board[row][col] = new JButton("");
+					 board[row][col].setBackground(Color.WHITE);	
+					 add(board[row][col]);
+					 // otherwise, just set checker to light gray
+				 } else {
+					 board[row][col] = new JButton("");
+					 board[row][col].setBackground(Color.LIGHT_GRAY);
+					 add(board[row][col]);
+				 }
+				 board[row][col].addActionListener(listener);
+			 }
+		 }
+
+//		 for(int m = 0; m < SIZE; m++)
+//			 for(int n = 0; n < SIZE; n++)
+//		for(int row = 0; row < SIZE; row++)
+//			for(int col = 0; col < SIZE; col++)
+		
+		 // sets up a new board
+		displayBoard();
+	 }
+	      // method that updates the board
+	 private void displayBoard()
+	 {
+		 board[0][0].setIcon(black_rook);
+		 board[0][1].setIcon(black_knight);
+		 board[0][2].setIcon(black_bishop);
+		 board[0][3].setIcon(black_queen);
+		 board[0][4].setIcon(black_king);
+		 board[0][5].setIcon(black_bishop);
+		 board[0][6].setIcon(black_knight);
+		 board[0][7].setIcon(black_rook);
+		 for(int col = 0; col < SIZE; col++)
+			 board[1][col].setIcon(black_pawn);
+		 
+		 board[7][0].setIcon(white_rook);
+		 board[7][1].setIcon(white_knight);
+		 board[7][2].setIcon(white_bishop);
+		 board[7][3].setIcon(white_queen);
+		 board[7][4].setIcon(white_king);
+		 board[7][5].setIcon(white_bishop);
+		 board[7][6].setIcon(white_knight);
+		 board[7][7].setIcon(white_rook);
+		 for(int col = 0; col < SIZE; col++)
+			 board[6][col].setIcon(white_pawn);
+		 
+		 for(int row = 2; row < 6; row++)
+			 for(int col = 0; col < SIZE; col++)
+				 board[row][col].setIcon(null);
+	 }
+	      // add other helper methods as needed
+	 public void setDefaultBoard()
+	 {
+		 model.setDefaultBoard();
+		 displayBoard();
+	 }
+	      // inner class that represents action listener for buttons
+	 private class ButtonListener implements ActionListener
+	 {
+		 public void actionPerformed(ActionEvent e)
+		 {
+			 Object source = e.getSource();
+			 if(clicks == 2)	{
+				 clicks = 0;
+				 System.out.println("Last Player: " + model.currentPlayer());
+				 model.nextPlayer();
+				 System.out.println("Current Player: " + model.currentPlayer());	// remove later
+			 }			 
+			 
+			 for(int row = 0; row < SIZE; row++)
+				 for(int col = 0; col < SIZE; col++)
+					 if(source == board[row][col])
+					 {
+						 if(model.inCheck(model.currentPlayer()) && clicks == 0)
+								JOptionPane.showMessageDialog(null, "Your king is in check!");
+						if(clicks == 0 && model.pieceAt(row, col) != null)
+						{
+							tempIcon = board[row][col].getIcon();
+							prevColor = board[row][col].getBackground();
+							board[row][col].setBackground(Color.BLUE);
+							prevRow = row;
+							prevCol = col;
+							clicks++;	
+						}
+						if(clicks == 1 && model.isValidMove(new Move(prevRow, prevCol, row, col)))
+						{
+							board[row][col].setIcon(tempIcon);
+							board[prevRow][prevCol].setIcon(null);
+							board[prevRow][prevCol].setBackground(prevColor);
+
+							clicks++;
+							Move m = new Move(prevRow,prevCol,row,col);
+							model.move(m);
+//							System.out.println(m);
+						}
+						if(clicks != 1 && !model.isValidMove(new Move(prevRow, prevCol, row, col))) {	//FIXME
+							
+							JOptionPane.showMessageDialog(null, "Cant move there!");
+							clicks = 0;
+							
+						}
+					 }
+				 
+		 } 
+	 }
+	
+}

@@ -1,0 +1,3 @@
+1515804461488	Convert local variable 'scnr' to field
+1515814858726	Encapsulate field 'time'
+1515815714034	Encapsulate field 'other'

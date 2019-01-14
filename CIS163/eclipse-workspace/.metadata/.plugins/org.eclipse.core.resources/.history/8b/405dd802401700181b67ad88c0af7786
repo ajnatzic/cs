@@ -1,0 +1,172 @@
+package project2;
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+
+//import modelPackage.*;
+
+@SuppressWarnings("serial")
+public class ConnectFourPanel extends JPanel {
+
+    private int size = 10;    
+    private JLabel[][] matrix;
+    private JButton[] selection;
+
+    private Boolean computer = true;
+    private JMenuItem gameItem;
+    private JMenuItem quitItem;
+    private ImageIcon iconBlank;
+    private ImageIcon iconPlayerUser;
+    private ImageIcon iconPlayerComputer;
+    private static final int USER = 0;
+    private static final int COMPUTER = 1;
+
+    private ConnectFourGame game;
+
+    /**
+	 * Constructor for ConnectFourPanel
+	 * 
+	 * @param pquitItem
+	 * @param pgameItem
+	 */
+	public ConnectFourPanel(JMenuItem pquitItem, JMenuItem pgameItem) {
+		String[] options = new String[] {"1 player", "2 players"};
+	    int response = JOptionPane.showOptionDialog(null, "Please select number of players", "Connect Four",
+	        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+	        null, options, options[0]);
+	    if (response == 1)	// if 2 player selected
+	    	computer = false;
+	    else				// if 1 player selected
+	    	computer = true;
+		
+		String newSize = JOptionPane.showInputDialog(null, "Please enter board size between 3 and 30:", size);
+		
+		checkBoardSize(newSize);	// checks if user inputed valid board size
+		
+        game = new ConnectFourGame(size);  
+        
+        gameItem = pgameItem;
+        quitItem = pquitItem;
+
+        setLayout(new GridLayout(size+1,size));  // room for top row
+
+        iconBlank = new ImageIcon ("blank.png");
+        iconPlayerUser = new ImageIcon ("blue.png");
+        iconPlayerComputer = new ImageIcon ("red.png");
+
+        ButtonListener listener = new ButtonListener();
+        quitItem.addActionListener(listener);
+        gameItem.addActionListener(listener);       
+
+        selection = new JButton[size];
+        for (int col = 0; col < size; col++) {
+            selection[col] = new JButton ("Select");
+            selection[col].addActionListener(listener);
+            add(selection[col]);
+        }
+
+        matrix = new JLabel[size][size];
+
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                matrix[row][col] = new JLabel("",iconBlank,SwingConstants.CENTER);
+                add(matrix[row][col]);					
+            }
+        }
+    }
+	
+	private void checkBoardSize(String pnewSize){
+		try {	// tests to see if user inputed value between 3 and 30
+			size = Integer.parseInt(pnewSize);
+			game = new ConnectFourGame(size);
+			if(size < 3)
+				throw new Exception();
+			if(size > 30)
+				throw new Exception();
+		}
+		catch(Exception e){
+			JOptionPane.showMessageDialog(null, "Invalid input given for board size", "ERROR", JOptionPane.ERROR_MESSAGE);
+			size = 10;	// set board size to default if invalid input given
+		}
+	}
+
+	
+    //*****************************************************************
+    //  Represents a listener for button push (action) events.
+    //*****************************************************************
+    private class ButtonListener implements ActionListener
+    {
+        //--------------------------------------------------------------
+        //  Updates the counter and label when the button is pushed.
+        //--------------------------------------------------------------
+        public void actionPerformed (ActionEvent event)
+        {
+
+			JComponent comp = (JComponent) event.getSource();
+
+			for (int col = 0; col < size; col++) {
+				if (selection[col] == comp) {
+
+					int row = game.selectCol(col);
+					if (row == -1)	{
+						JOptionPane.showMessageDialog(null, "Column is full!");
+						continue;
+					}
+					else
+						matrix[row][col].setIcon((game.getCurrentPlayer() == 0) ? iconPlayerUser : iconPlayerComputer);
+
+					if (computer == true) { // if game is one player, computer move will execute
+						if (!game.isWinner(USER)) {
+							game.nextPlayer();
+							Point computerMove = game.computerMove();
+							matrix[computerMove.x][computerMove.y].setIcon(iconPlayerComputer);
+						}
+					}
+
+					if (game.isWinner(game.getCurrentPlayer())) { // checks if someone wins
+						if (computer == true) {		// if game has computer, display computer message
+							if (game.getCurrentPlayer() == COMPUTER)
+								JOptionPane.showMessageDialog(null, "Computer Wins!");
+							if (game.getCurrentPlayer() == USER)
+								JOptionPane.showMessageDialog(null, "You win!");
+
+						}
+
+						else if (computer == false) {	// if game does not have computer, display player messages
+							if (game.getCurrentPlayer() == 0)
+								JOptionPane.showMessageDialog(null, "Player 1 Wins!");
+							if (game.getCurrentPlayer() == 1)
+								JOptionPane.showMessageDialog(null, "Player 2 Wins!");
+						}
+						for (int button = 0; button < size; button++) { // disables selection buttons after win
+							selection[button].setEnabled(false);
+						}
+					}
+
+					game.nextPlayer();
+
+				}
+
+			}
+
+			if (comp == gameItem) {
+				game.reset();
+         
+                for (int button = 0; button < size; button++) {	// re-enables all selection buttons
+                	selection[button].setEnabled(true);
+                }
+
+                for (int row = 1; row < size; row++) 	// sets all checkers to blank
+                    for (int col = 0; col < size; col++) 
+                        matrix[row][col].setIcon( iconBlank);
+            }
+
+            if (comp == quitItem)
+                System.exit(1);
+        }
+
+    }
+
+}

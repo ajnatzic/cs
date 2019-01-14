@@ -1,0 +1,436 @@
+package project1;
+
+/**********************************************************
+ * Creates a timer that counts down until the new year
+ * 
+ * @author AJ Natzic
+ * @version Winter 2018
+ **********************************************************/
+public class CountDownTimer {
+
+	/** timer objects created for this class */
+	private CountDownTimer time, other;
+
+	/** current hours on the CountDownTimer object */
+	private int hours = 0;
+
+	/** current minutes on the CountDownTimer object */
+	private int minutes = 0;
+
+	/** current seconds on the CountDownTimer object */
+	private int seconds = 0;
+
+	/**
+	 * Default Constructor that sets the CountDownTimer to zero
+	 */
+	public CountDownTimer() {
+		hours = 0;
+		minutes = 0;
+		seconds = 0;
+	}
+
+	/**
+	 * Get method that returns time
+	 * 
+	 * @return time
+	 */
+	public CountDownTimer getTime() {
+		return time;
+	}
+
+	/**
+	 * Set method that sets the time for this class
+	 * 
+	 * @param time
+	 */
+	public void setTime(CountDownTimer time) {
+		this.time = time;
+	}
+
+	/**
+	 * Get method that returns the "other" count down timer
+	 * 
+	 * @return other
+	 */
+	public CountDownTimer getOther() {
+		return other;
+	}
+
+	/**
+	 * Set method that sets the "other" count down timer
+	 * 
+	 * @param other
+	 */
+	public void setOther(CountDownTimer other) {
+		this.other = other;
+	}
+
+	/**
+	 * Constructor that initializes the instance variables with the given values
+	 * 
+	 * @param hours
+	 *            Given hours of the CountDownTimer
+	 * @param minutes
+	 *            Given minutes of the CountDownTimer
+	 * @param seconds
+	 *            Given seconds of the CountDownTimer
+	 */
+	public CountDownTimer(int hours, int minutes, int seconds) {
+		this.hours = hours;
+		this.minutes = minutes;
+		this.seconds = seconds;
+	}
+
+	/**
+	 * Constructor that initializes the instance variables with the given values
+	 * 
+	 * @param minutes
+	 *            Given minutes of the CountDownTimer
+	 * @param seconds
+	 *            Given seconds of the CountDownTimer
+	 */
+	public CountDownTimer(int minutes, int seconds) {
+		hours = 0;
+		this.minutes = minutes;
+		this.seconds = seconds;
+	}
+
+	/**
+	 * Constructor that initializes the instance variables with the given values
+	 * 
+	 * @param seconds
+	 *            Given seconds of the CountDownTimer
+	 */
+	public CountDownTimer(int seconds) {
+		hours = 0;
+		minutes = 0;
+		this.seconds = seconds;
+	}
+
+	/**
+	 * Constructor that initializes the instance variables with the other
+	 * CountDownTimer parameter
+	 * 
+	 * @param other
+	 *            The other CountDownTimer
+	 */
+	public CountDownTimer(CountDownTimer other) {
+		setTime(other);
+	}
+
+	/**
+	 * A constructor that accepts the string startTime as a parameter time in the
+	 * format "11:30:56" where 11 is hours, 30 is minutes, and 56 is seconds. OR for
+	 * 11:56 where 11 is minutes and 56 is seconds OR for 22 where 22 is seconds
+	 * 
+	 * @param startTime
+	 *            A parameter for time in the standard colon format stated above
+	 */
+	public CountDownTimer(String startTime) {
+		/*************************************************************
+		 * if string startTime has AT LEAST ONE colon and is NOT empty
+		 *************************************************************/
+		if (startTime.indexOf(':') != -1 && startTime.length() != 0) {
+			/**************************************************
+			 * if string startTime has TWO COLONS e.g. ##:##:##
+			 **************************************************/
+			if (startTime.indexOf(':') != startTime.lastIndexOf(':')) {
+				if (startTime.indexOf(':') == 2) { // if hours is two digits e.g. ##:##:##
+					hours = Integer.parseInt(startTime.substring(0, 2));
+					if (startTime.lastIndexOf(':') == 5) { // if minutes is two digits e.g. ##:##:##
+						minutes = Integer.parseInt(startTime.substring(3, 5));
+						if (startTime.length() == 8) { // if seconds is two digits
+							seconds = Integer.parseInt(startTime.substring(6, 8));
+						} else { // seconds is not two digits, must be one digit
+							seconds = Integer.parseInt(startTime.substring(6, 7));
+						}
+					} else { // minutes is not two digits, must be one digit
+						minutes = Integer.parseInt(startTime.substring(3, 5));
+						if(startTime.length() == 7) { // if seconds is two digit
+							seconds = Integer.parseInt(startTime.substring(5, 7));
+						} else { // seconds is not two digits, must be one digit
+							seconds = Integer.parseInt(startTime.substring(5, 6));
+						}
+					}
+				} else { // hours is not two digits it must be one digit e.g. #:##:##
+					hours = Integer.parseInt(startTime.substring(0, 1));
+					if (startTime.lastIndexOf(':') == 4) { // if minutes is two digits e.g. #:##:##
+						minutes = Integer.parseInt(startTime.substring(2, 4));
+						if (startTime.length() == 7) { // if seconds is two digits
+							seconds = Integer.parseInt(startTime.substring(5, 7));
+						} else { // seconds is not two digits, must be one digit
+							seconds = Integer.parseInt(startTime.substring(5, 6));
+						}
+					} else { // minutes is not two digits, must be one digit
+						minutes = Integer.parseInt(startTime.substring(2, 3));
+						if (startTime.length() == 6) { // if seconds is two digits
+							seconds = Integer.parseInt(startTime.substring(4, 6));
+						} else { // seconds is not two digits, must be one digit
+							seconds = Integer.parseInt(startTime.substring(4, 5));
+						}
+					}
+				}
+			} 
+			/***************************************************
+			 * if string startTime only has one colon e.g. ##:##
+			 ***************************************************/
+			else if (startTime.indexOf(':') == startTime.lastIndexOf(':')) {
+				if (startTime.charAt(2) == ':') { // if string startTime has two digits for minutes e.g. "##:#" or
+													// "##:##"
+					hours = 0;
+					minutes = Integer.parseInt(startTime.substring(0, 2));
+					if (startTime.length() == 4) { // determines if seconds is one digit
+						seconds = Integer.parseInt(startTime.substring(3, 4));
+					} else { // since seconds is not one digit it must be two digits
+						seconds = Integer.parseInt(startTime.substring(3, 5));
+					}
+				} else if (startTime.charAt(1) == ':') { // if string startTime has one digit for minutes e.g. "#:#" or
+															// "#:##"
+					minutes = Integer.parseInt(startTime.substring(0, 1));
+					if (startTime.length() == 3) { // determines if seconds is one digit
+						seconds = Integer.parseInt(startTime.substring(0, 1));
+					} else { // since seconds is not one digit it must be two digits
+						seconds = Integer.parseInt(startTime.substring(0, 2));
+					}
+				}
+			}
+		} 
+		/***********************************************************************
+		 * if string startTime DOES NOT have a colon but it is NOT empty e.g. ##
+		 ***********************************************************************/
+		else if (startTime.indexOf(':') == -1 && startTime.length() != 0) {
+			minutes = 0;
+			if (startTime.length() == 2) { // checks if there is 2 digits for seconds
+				seconds = Integer.parseInt(startTime.substring(0, 1));
+			} else { // since seconds is not two digits, it must be one digit
+				seconds = Integer.parseInt(startTime.substring(0, 1));
+			}
+		}
+		/******************************
+		 * if string startTime is EMPTY
+		 ******************************/
+		else if (startTime.length() == 0) {
+			hours = 0;
+			minutes = 0;
+			seconds = 0;
+		}
+	}
+
+	/**
+	 * Method that returns true if the "this" CountDownTimer object is exactly the
+	 * same as the other CountDownTimer object
+	 */
+	public boolean equals(Object other) {
+		//int total = 0;
+		
+		if (hours == this.other.hours && minutes == this.other.minutes && seconds == this.other.seconds) {
+			return true;
+		} else {
+			return false;
+		}
+		// FIXME
+	}
+
+	/**
+	 * Static method that returns true if CountDownTimer object t1 is exactly the
+	 * same as CountDownTimer object t2
+	 * 
+	 * @param t1
+	 *            The first CountDownTimer object
+	 * @param t2
+	 *            The second CountDownTimer object
+	 * @return
+	 */
+	public static boolean equals(CountDownTimer t1, CountDownTimer t2) {
+		if (t1.hours == t2.hours && t1.minutes == t2.minutes && t1.seconds == t2.seconds) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * A method that returns 1, -1 or 0 depending on whether the "this"
+	 * CountDownTimer object is greater than, less than, or equal to the "other"
+	 * CountDownTimer object
+	 * 
+	 * @param other
+	 *            The "other" CountDownTimer object
+	 * @return 1 if "this" CountDownTimer object is greater than the "other"
+	 *         CountDownTimer
+	 * @return -1 if "this" CountDownTimer is less than the "other" CountDownTimer
+	 * @return 0 if "this" CountDownTimer object and "other" CountDownTimer are
+	 *         exactly the same
+	 */
+	public int compareTo(CountDownTimer other) {
+		return 2;
+		// FIXME
+	}
+
+	/**
+	 * Static method that returns 1, -1, or 0 depending on whether CountDownTimer
+	 * object t1 is greater than, less than, or equal to CountDownTimer object t2
+	 * 
+	 * @param t1
+	 *            the first CountDownTimer object
+	 * @param t2
+	 *            the second CountDownTimer object
+	 * @return 1 if t1 is greater than t2 object
+	 * @return 0 if t1 is equal to t2 object
+	 * @return -1 if t1 is less than t2 object
+	 */
+	public static int compareTo(CountDownTimer t1, CountDownTimer t2) {
+		return 2;
+		// FIXME
+	}
+
+	/**
+	 * Method that subtracts seconds from "this" CountDownTimer object
+	 * 
+	 * @param secondsSub
+	 *            amount of seconds being subtracted from "this" CountDownTimer
+	 *            object
+	 */
+	public void sub(int secondsSub) {
+		double total = 0.0;
+
+		total = (hours * 3600) + (minutes * 60) + seconds; // converts "this" CountDownTimer to seconds
+
+		total = total - secondsSub; // subtracts parameter secondsSub from total time
+
+		hours = (int) total / 3600;
+		minutes = (int) (((total / 3600.0) - hours) * 60.0);
+		seconds = (int) Math.round((((((total / 3600.0) - hours) * 60.0) - minutes) * 60.0));
+	}
+
+	/**
+	 * Method that subtracts "other" CountDownTimer object from "this"
+	 * CountDownTimer object
+	 * 
+	 * @param other
+	 *            "other" CountDownTimer object
+	 */
+	public void sub(CountDownTimer other) {
+		double total = 0.0;
+		double totalOther = 0.0;
+
+		total = (hours * 3600) + (minutes * 60) + seconds; // converts "this" CountDownTimer to seconds
+		totalOther = (other.hours * 3600) + (other.minutes * 60) + other.seconds; // converts "other" CountDownTimer to
+																					// seconds
+
+		total = total - totalOther; // subtracts the "other" CountDownTimer from "this" CountDownTimer
+
+		hours = (int) total / 3600;
+		minutes = (int) (((total / 3600.0) - hours) * 60.0);
+		seconds = (int) Math.round((((((total / 3600.0) - hours) * 60.0) - minutes) * 60.0));
+	}
+
+	/**
+	 * Method that decrements "this" CountDownTimer object by one second
+	 */
+	public void dec() {
+		sub(1);
+	}
+
+	/**
+	 * Method that adds given number of seconds to "this" CountDownTimer object
+	 * 
+	 * @param secondsAdd
+	 *            positive number of seconds
+	 */
+	public void add(int secondsAdd) {
+		double total = 0.0;
+
+		total = (hours * 3600) + (minutes * 60) + seconds; // converts "this" CountDownTimer to seconds
+
+		total = total + secondsAdd; // adds parameter secondsAdd from total time
+
+		hours = (int) total / 3600;
+		minutes = (int) (((total / 3600.0) - hours) * 60.0);
+		seconds = (int) Math.round((((((total / 3600.0) - hours) * 60.0) - minutes) * 60.0));
+	}
+
+	/**
+	 * Method that adds "other" CountDownTimer object to "this" CountDownTimer
+	 * object
+	 * 
+	 * @param other
+	 *            "other" CountDownTimer object
+	 */
+	public void add(CountDownTimer other) {
+		double total = 0.0;
+		double totalOther = 0.0;
+
+		total = (hours * 3600) + (minutes * 60) + seconds; // converts "this" CountDownTimer to seconds
+		totalOther = (other.hours * 3600) + (other.minutes * 60) + other.seconds; // converts "other" CountDownTimer to
+																					// seconds
+
+		total = total + totalOther; // adds the "other" CountDownTimer to "this" CountDownTimer
+
+		hours = (int) total / 3600;
+		minutes = (int) (((total / 3600.0) - hours) * 60.0);
+		seconds = (int) Math.round((((((total / 3600.0) - hours) * 60.0) - minutes) * 60.0));
+	}
+
+	/**
+	 * Method that increments one second to "this" CountDownTimer object
+	 */
+	public void inc() {
+		add(1);
+	}
+
+	/**
+	 * Method that returns the standard formatted time with colons in-between (e.g.
+	 * 11:56:33)
+	 * 
+	 * @return formatTime the formatted time
+	 */
+	public String toString() {
+		String formatTime = "";
+		if (minutes < 10) {
+			if (seconds < 10) {
+				formatTime = hours + ":0" + minutes + ":0" + seconds;
+			} else {
+				formatTime = hours + ":0" + minutes + ":" + seconds;
+			}
+		} else if (seconds < 10 && minutes >= 10) {
+			formatTime = hours + ":" + minutes + ":0" + seconds;
+		} 
+		else {
+			formatTime = hours + ":" + minutes + ":" + seconds;
+		}
+
+		return formatTime;
+	}
+
+	/**
+	 * The main method
+	 */
+	public static void main(String[] args) {
+		CountDownTimer s = new CountDownTimer("2:59:8");
+		System.out.println("Time: " + s);
+
+		s = new CountDownTimer("20:8");
+		System.out.println("Time: " + s);
+
+		s = new CountDownTimer("8");
+		System.out.println("Time: " + s);
+
+		CountDownTimer s1 = new CountDownTimer(25, 2, 20);
+		System.out.println("Time: " + s1);
+
+		s1.sub(1000);
+		System.out.println("Time: " + s1);
+
+		s1.add(1000);
+		System.out.println("Time: " + s1);
+
+		CountDownTimer s2 = new CountDownTimer(40, 10, 20);
+		s2.sub(100);
+
+		for (int i = 0; i < 4000; i++)
+			s2.dec();
+
+		System.out.println("Time: " + s2);
+	}
+}
