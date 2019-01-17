@@ -1,0 +1,126 @@
+#AJ Natzic
+#Coding Assignment #6
+#Discrete Structures
+
+def setToBit(n, A):
+  
+# this function effectively transforms a subset into a bitstring  
+  
+  
+  newBit = []
+	
+  # an empty list where our new bitstring will be stored
+
+  for i in range(1, n + 1):
+	
+  # iterates through range 1, n + 1 (inclusive)
+    if listA.count(i) >= 1:
+     
+      newBit.append(1)
+ 
+    # if there is one or more occurances of an iteration (n), then append a '1' to the new bitstring   	
+    else:
+      			
+      newBit.append(0)
+      
+  
+    # otherwise just append a '0'
+  
+  return newBit
+      
+		
+  # return the new bitstring
+
+
+def setToLattice(n, A):
+  
+
+# this function effectively transforms a subset into a lattice path  
+  
+  
+  
+  
+  newLattice = []
+	
+  
+  # an empty list where our new lattice path will be stored
+ 
+ 
+  for i in range(1, n + 1):
+	
+  
+  # iterates through range 1, n + 1 (inclusive)
+    
+    if listA.count(i) >= 1:
+     
+      
+      newLattice.append('up')
+ 
+     
+    # if there is one or more occurances of an iteration (n), then append an 'up' to the new bitstring   	
+    
+    else:
+      			
+      
+      newLattice.append('right')
+      
+  
+      
+    # otherwise just append a 'right'
+  
+  
+
+  return newLattice
+      
+		
+  
+  # return the new lattice path
+
+
+def bitToLattice(B):
+
+# this function effectively transforms a bistring to a lattice path
+
+  
+
+  newLattice = []
+  
+  # an empty list where our new lattice path will be stored
+ 
+ 
+  for elem in B:	
+  
+  
+  # iterates through each element in bitstring B  
+    
+  if elem == 1: 
+      
+      
+    newLattice.append('up')
+ 
+     
+   
+  # if the current element of B equals '1' then append 'up' to the new lattice path  	
+    
+    
+  else:
+      			
+      
+      
+    newLattice.append('right')
+      
+  
+      
+    
+  # otherwise just append a 'right'
+  
+  
+
+  
+
+  return newLattice
+      
+		
+  
+  
+  # return the new lattice path

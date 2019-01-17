@@ -1,0 +1,26 @@
+#Coding Assignment #9
+
+#AJ Natzic
+
+#Discrete Structures
+
+
+
+#an = c1 · an-1 + c2 · an-2
+
+def recursiveForm(c1, c2, a0, a1): 			# returns the first 15 elements of a sequence
+  
+  
+
+  first15 = [a0, a1]
+					# puts the first 2 terms into the list
+
+  for i in range(2,15):
+    				# iterates 13 times to generate the remaining elements needed (15)
+    element = (c1 * first15[i-1]) + (c2 * first15[i-2])
+ # follows the formula seen above the def() statement to generate element
+    first15.append(element)
+   				# appends the generated element to the list 
+
+  return first15
+					# returns the new list

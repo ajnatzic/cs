@@ -1,0 +1,36 @@
+#Coding Assignment #7
+#AJ Natzic
+#Discrete Structures
+
+def arithmetic(initial, difference, last_index):
+  # this function creates an arithmetic sequence
+  
+
+  sequence = [initial]
+  
+# puts the initial value into the sequence list  
+  
+  for i in range(0 ,last_index):
+   # loops through the indexes 0 to the last_index 
+    sequence.append((sequence[i]) + difference)
+  
+ # appends the current term plus the difference to the end of the list 
+  
+  return sequence	# after the loop the list is returned 
+
+
+def geometric(initial, ratio, last_index):
+  # this function creates a geometric sequence
+  
+
+  sequence = [initial]
+  
+# puts the initial value into the sequence list  
+  
+  for i in range(0 ,last_index):
+    # loops through the indexes 0 to the last_index
+    sequence.append((sequence[i]) * ratio)
+  
+  # appends the current term times the ratio to the end of the list
+
+  return sequence	# after the loop the list is returned
