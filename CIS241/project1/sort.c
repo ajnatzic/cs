@@ -13,11 +13,15 @@
  * */
 void swap(int *xp, int *yp) 
 { 
-    int temp = *xp; 
-    *xp = *yp; 
-    *yp = temp; 
+    int temp = *xp;	// creates a temporary variable to hold the original first value 
+    *xp = *yp; 		// swaps the first value with the second value
+    *yp = temp; 	// swaps the second value with the original first value, the temp variable we created earlier
 } 
 
+/**
+ * This function performs bubble sort on an array. It is simple. It loops through the array twice, if the element it is currently on (first loop) is bigger than the next element
+ * (second loop) than these two elements are swapped. This is done for every element until the array is sorted.
+ * */
 void bubbleSort(int randArr[], int arrSize){
 	int i, j; 
 	for (i = 0; i < arrSize - 1; i++) // loops through array    
