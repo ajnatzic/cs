@@ -1,0 +1,35 @@
+#MTH 225 Coding Assignment 2
+#
+#Created by AJ Natzic
+
+
+def intersect(a, b):
+  c = []	    #declares an empty list, c
+
+  for num in a:	    #checks each number in list a
+    if num in b:    #if number in a is an element of b then add it to c
+      c.append(num)
+  return c	    #returns the new list, c. The intersection of a and b
+
+
+def union(a, b):
+  c = []		#declares an empty list, c
+
+  for num in a:		#append all numbers of a to list c
+    c.append(num)
+  for num in b:
+    if num not in c:	#append all numbers of b to list c but ONLY IF it is not already in list c
+      c.append(num)
+  return c		#return the new list, c. The union of list a and list b
+     
+  
+def subset(a, b):
+  c = []		#declares an empty list, c
+
+  for num in a:		#for each number in a, if number is in list b, then append it to c
+    if num in b:
+      c.append(num)
+  if c == a:		#if list c equals list a (if all elements were in list b) then return True
+    return True
+  else:
+    return False	# if list c does NOT equal list a (if all elements were NOT in list b) then return False

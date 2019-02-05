@@ -1,0 +1,604 @@
+SQL> SET ECHO ON
+SQL> /*
+SQL> CIS 353 - Database Design Project
+SQL> Alfred Natzic
+SQL> James Lund
+SQL> Johnathon Killeen
+SQL> Quinn Meagher
+SQL> Zachary Thomas
+SQL> */
+SQL> /*
+SQL> < The SQL/DDL code that creates your schema goes here >
+SQL> In the DDL, every IC must have a unique name; e.g. IC5, IC10, IC15, etc.
+SQL> */
+SQL> --
+SQL> -- Drop all tables in case changes are made
+SQL> DROP TABLE Director CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE Rating_Agency CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE Revenue_History CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE Movie CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE Book CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE Actor CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE ActedIn CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE DirectedBy CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE Ratings CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE Genre CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> --
+SQL> -- These lines create the tables
+SQL> CREATE TABLE Director (
+  2  	     dID INTEGER PRIMARY KEY,
+  3  	     dname CHAR(15)
+  4  );
+
+Table created.
+
+SQL> --
+SQL> CREATE TABLE Rating_Agency (
+  2  	     agencyName char(15) PRIMARY KEY
+  3  );
+
+Table created.
+
+SQL> --
+SQL> CREATE TABLE Movie (
+  2  	     mID INTEGER,
+  3  	     title CHAR(35),
+  4  	     genre CHAR(15),
+  5  	     inCinema CHAR(3),
+  6  	     year INTEGER,
+  7  	     --IC1: Movie
+  8  	     CONSTRAINT IC1 PRIMARY KEY (mID),
+  9  	     --IC5: inCinema can only be 'yes' or 'no'
+ 10  	     CONSTRAINT IC5 CHECK(inCinema IN('yes', 'no')),
+ 11  	     --IC4: If a movie is in a inCinema, it needs to have been in the last 2 years
+ 12  	     CONSTRAINT IC4 CHECK(NOT (inCinema = 'no' AND (year > 2016)))
+ 13  );
+
+Table created.
+
+SQL> --
+SQL> CREATE TABLE Revenue_History (
+  2  	     rID INTEGER,
+  3  	     revenue INTEGER,
+  4  	     totalDaysInTheater INTEGER,
+  5  	     --IC2: Revenue referencs movieID
+  6  	     CONSTRAINT IC2 FOREIGN KEY (rID) REFERENCES Movie(mID)
+  7  );
+
+Table created.
+
+SQL> --
+SQL> CREATE TABLE Book (
+  2  	     ISBN INTEGER,
+  3  	     mID INTEGER,
+  4  	     title CHAR(35),
+  5  	     mainAuthor CHAR(15),
+  6  	     CONSTRAINT IC16 PRIMARY KEY (ISBN, mID),
+  7  	     CONSTRAINT IC6 FOREIGN KEY (mID) references Movie(mID)
+  8  );
+
+Table created.
+
+SQL> --
+SQL> CREATE TABLE Actor (
+  2  	     aID INTEGER PRIMARY KEY,
+  3  	     gender CHAR(1),
+  4  	     name CHAR(15),
+  5  	     --IC3: Actor is either a M/F
+  6  	     CONSTRAINT IC3 CHECK (gender IN('M', 'F'))
+  7  );
+
+Table created.
+
+SQL> --
+SQL> CREATE TABLE ActedIn(
+  2  	     mID INTEGER,
+  3  	     aID INTEGER,
+  4  	     paid INTEGER,
+  5  	     role CHAR(15),
+  6  	     nameInMovie CHAR(15),
+  7  	     CONSTRAINT IC11 PRIMARY KEY (mID, aID),
+  8  	     CONSTRAINT IC7 FOREIGN KEY (mID) references Movie(mID)
+  9  );
+
+Table created.
+
+SQL> --
+SQL> CREATE TABLE DirectedBy(
+  2  	     dID INTEGER,
+  3  	     mID INTEGER,
+  4  	     salary INTEGER,
+  5  	     CONSTRAINT IC12 PRIMARY KEY (dID, mID),
+  6  	     CONSTRAINT IC8 FOREIGN KEY (mID) references Movie(mID)
+  7  );
+
+Table created.
+
+SQL> --
+SQL> CREATE TABLE Ratings(
+  2  	     agencyName CHAR(15),
+  3  	     mID INTEGER,
+  4  	     rating NUMBER(2),
+  5  	     CONSTRAINT IC13 PRIMARY KEY (agencyName, mID),
+  6  	     CONSTRAINT IC9 FOREIGN KEY (agencyName) references Rating_Agency(agencyName),
+  7  	     CONSTRAINT IC10 FOREIGN KEY (mID) references Movie(mID)
+  8  );
+
+Table created.
+
+SQL> --
+SQL> CREATE TABLE Genre(
+  2  	     mID INTEGER,
+  3  	     genre CHAR(15),
+  4  	     CONSTRAINT IC14 PRIMARY KEY (mID, genre),
+  5  	     CONSTRAINT IC15 FOREIGN KEY (mID) references Movie(mID)
+  6  );
+
+Table created.
+
+SQL> --
+SQL> --
+SQL> --
+SQL> SET FEEDBACK OFF
+SQL> /*
+SQL> INSERT statements goes here
+SQL> Important: Keep the number of rows in each table small enough so that the results of your queries can be verified by hand. See the Sailors database as an example.
+SQL> */
+SQL> --
+SQL> -- Insert Director rows
+SQL> -- dID, dname
+SQL> INSERT INTO Director VALUES(40157, 'Mr Wison');
+SQL> INSERT INTO Director VALUES(12345, 'Marc Webb');
+SQL> INSERT INTO Director VALUES(58931, 'Nelly Horse');
+SQL> INSERT INTO Director VALUES(34212, 'Wruce Billis');
+SQL> --
+SQL> -- Insert Rating_Agency rows
+SQL> -- agencyName
+SQL> INSERT INTO Rating_Agency VALUES('IMDB');
+SQL> INSERT INTO Rating_Agency VALUES('Rotten Tomatoes');
+SQL> --
+SQL> -- Insert Movie rows
+SQL> -- mID, title, genre, inCinema, year
+SQL> INSERT INTO Movie VALUES(1234567, 'The Amazing Spider-Man', 'Action', 'no', '2012');
+SQL> INSERT INTO Movie VALUES(12345, 'Cool title 2', 'Adventure', 'yes', '2018');
+SQL> INSERT INTO Movie VALUES(99999, 'Dramatic Drama', 'Drama', 'no', '2010');
+SQL> INSERT INTO Movie VALUES(86753, 'Pirate Movie', 'Adventure', 'no', '1998');
+SQL> INSERT INTO Movie VALUES(00093, 'Too Fast Too Furious', 'Action', 'yes', '2303');
+SQL> --
+SQL> -- Insert Revenue_History rows
+SQL> -- rID, revenue, totalDaysInTheater
+SQL> INSERT INTO Revenue_History VALUES(1234567, 100000000, 300);
+SQL> INSERT INTO Revenue_History VALUES(86753, 1345000, 189);
+SQL> INSERT INTO Revenue_History VALUES(99999, 18375, 1002);
+SQL> INSERT INTO Revenue_History VALUES(12345, 999999999, 34);
+SQL> INSERT INTO Revenue_History VALUES(00093, 79870987, 1030);
+SQL> --
+SQL> -- Insert Book rows
+SQL> -- ISBN, mID, title, mainAuthor
+SQL> INSERT INTO Book VALUES(1334565435654, 1234567, 'What an Amazing Spiderman!', 'Pete Lunz');
+SQL> INSERT INTO Book VALUES(8476039485762, 99999, 'Forbaden Love', 'Dr Pepper');
+SQL> INSERT INTO Book VALUES(0987678987654, 00093, 'Need For Spood', 'Ricky Bobby');
+SQL> ---
+SQL> --- Insert Actor rows
+SQL> --- aID, gender, name
+SQL> INSERT INTO Actor VALUES(892, 'M', 'Donny Jepp');
+SQL> INSERT INTO Actor VALUES(745, 'F', 'Bella Button');
+SQL> INSERT INTO Actor VALUES(137, 'M', 'Man Manson');
+SQL> INSERT INTO Actor VALUES(871, 'M', 'Pan Handler');
+SQL> INSERT INTO Actor VALUES(209, 'F', 'Naomi Bakon');
+SQL> INSERT INTO Actor VALUES(152, 'F', 'Ingrid Fail');
+SQL> INSERT INTO Actor VALUES(361, 'M', 'Jessie Jam');
+SQL> INSERT INTO Actor VALUES(596, 'F', 'Lola Rat');
+SQL> INSERT INTO Actor VALUES(222, 'M', 'Quarter Penny');
+SQL> --
+SQL> -- Insert ActedIn rows
+SQL> -- mID, aID, paid, role, nameInMovie
+SQL> INSERT INTO ActedIn VALUES(86753, 745, 59000, 'Side', 'Cat Fisher');
+SQL> INSERT INTO ActedIn VALUES(86753, 892, 120000, 'Lead', 'John Crow');
+SQL> INSERT INTO ActedIn VALUES(1234567, 127, 145000, 'Lead', 'Spoderman');
+SQL> INSERT INTO ActedIn VALUES(1234567, 871, 78900, 'Antagonist', 'Blue Goblin');
+SQL> INSERT INTO ActedIn VALUES(12345, 361, 182000, 'Lead', 'Cool Guy');
+SQL> INSERT INTO ActedIn VALUES(12345, 152, 124000, 'Antagonist', 'The Uncooler');
+SQL> INSERT INTO ActedIn VALUES(12345, 209, 90000, 'Sidekick', 'Extra Bacon');
+SQL> INSERT INTO ActedIn VALUES(12345, 892, 90000, 'Minor Villan', 'Unnamed Extra');
+SQL> INSERT INTO ActedIn VALUES(99999, 871, 50, 'Lead', 'Ryan Renolds');
+SQL> INSERT INTO ActedIn VALUES(99999, 745, 300, 'Lead', 'Betty White');
+SQL> INSERT INTO ActedIn VALUES(00093, 222, 555000, 'Lead', 'Optimal Fuel');
+SQL> INSERT INTO ActedIn VALUES(00093, 596, 300000, 'Sidekick', 'Max Spood');
+SQL> --
+SQL> -- Insert DirectedBy rows
+SQL> -- dID, mID, salary
+SQL> INSERT INTO DirectedBy VALUES(40157, 86753, 75000);
+SQL> INSERT INTO DirectedBy VALUES(40157, 1234567, 567000);
+SQL> INSERT INTO DirectedBy VALUES(58931, 99999, 8000);
+SQL> INSERT INTO DirectedBy VALUES(12345, 12345, 1239080);
+SQL> INSERT INTO DirectedBy VALUES(34212, 00093, 130000);
+SQL> ---
+SQL> --- Insert Ratings rows
+SQL> --- agencyName, mID, rating
+SQL> INSERT INTO Ratings VALUES('IMDB', 1234567, 3);
+SQL> INSERT INTO Ratings VALUES('Rotten Tomatoes', 1234567, 5);
+SQL> INSERT INTO Ratings VALUES('IMDB', 99999, 1);
+SQL> INSERT INTO Ratings VALUES('Rotten Tomatoes', 99999, 2);
+SQL> INSERT INTO Ratings VALUES('IMDB',86753, 9);
+SQL> INSERT INTO Ratings VALUES('Rotten Tomatoes', 86753, 9);
+SQL> INSERT INTO Ratings VALUES('IMDB',12345, 10);
+SQL> INSERT INTO Ratings VALUES('Rotten Tomatoes', 12345, 10);
+SQL> INSERT INTO Ratings VALUES('IMDB',00093, 7);
+SQL> INSERT INTO Ratings VALUES('Rotten Tomatoes', 00093, 7);
+SQL> --
+SQL> -- Insert Genre rows
+SQL> -- mID, genre
+SQL> INSERT INTO Genre VALUES(1234567, 'Action');
+SQL> INSERT INTO Genre VALUES(99999, 'Drama');
+SQL> INSERT INTO Genre VALUES(00093, 'Action');
+SQL> INSERT INTO Genre VALUES(12345, 'Adventure');
+SQL> INSERT INTO Genre VALUES(86753, 'Adventure');
+SQL> --
+SQL> --
+SQL> SET FEEDBACK ON
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> --
+SQL> /*
+SQL> <One query (per table) of the form: SELECT * FROM table in order to print out your database >
+SQL> */
+SQL> SELECT * FROM Director;
+
+       DID DNAME                                                                
+---------- ---------------                                                      
+     40157 Mr Wison                                                             
+     12345 Marc Webb                                                            
+     58931 Nelly Horse                                                          
+     34212 Wruce Billis                                                         
+
+4 rows selected.
+
+SQL> SELECT * FROM Rating_Agency;
+
+AGENCYNAME                                                                      
+---------------                                                                 
+IMDB                                                                            
+Rotten Tomatoes                                                                 
+
+2 rows selected.
+
+SQL> SELECT * FROM Revenue_History;
+
+       RID    REVENUE TOTALDAYSINTHEATER                                        
+---------- ---------- ------------------                                        
+   1234567  100000000                300                                        
+     86753    1345000                189                                        
+     99999      18375               1002                                        
+     12345  999999999                 34                                        
+        93   79870987               1030                                        
+
+5 rows selected.
+
+SQL> SELECT * FROM Movie;
+
+       MID TITLE                               GENRE           INC       YEAR   
+---------- ----------------------------------- --------------- --- ----------   
+   1234567 The Amazing Spider-Man              Action          no        2012   
+     12345 Cool title 2                        Adventure       yes       2018   
+     99999 Dramatic Drama                      Drama           no        2010   
+     86753 Pirate Movie                        Adventure       no        1998   
+        93 Too Fast Too Furious                Action          yes       2303   
+
+5 rows selected.
+
+SQL> SELECT * FROM Book;
+
+      ISBN        MID TITLE                               MAINAUTHOR            
+---------- ---------- ----------------------------------- ---------------       
+1.3346E+12    1234567 What an Amazing Spiderman!          Pete Lunz             
+8.4760E+12      99999 Forbaden Love                       Dr Pepper             
+9.8768E+11         93 Need For Spood                      Ricky Bobby           
+
+3 rows selected.
+
+SQL> SELECT * FROM Actor;
+
+       AID G NAME                                                               
+---------- - ---------------                                                    
+       892 M Donny Jepp                                                         
+       745 F Bella Button                                                       
+       137 M Man Manson                                                         
+       871 M Pan Handler                                                        
+       209 F Naomi Bakon                                                        
+       152 F Ingrid Fail                                                        
+       361 M Jessie Jam                                                         
+       596 F Lola Rat                                                           
+       222 M Quarter Penny                                                      
+
+9 rows selected.
+
+SQL> SELECT * FROM ActedIn;
+
+       MID        AID       PAID ROLE            NAMEINMOVIE                    
+---------- ---------- ---------- --------------- ---------------                
+     86753        745      59000 Side            Cat Fisher                     
+     86753        892     120000 Lead            John Crow                      
+   1234567        127     145000 Lead            Spoderman                      
+   1234567        871      78900 Antagonist      Blue Goblin                    
+     12345        361     182000 Lead            Cool Guy                       
+     12345        152     124000 Antagonist      The Uncooler                   
+     12345        209      90000 Sidekick        Extra Bacon                    
+     12345        892      90000 Minor Villan    Unnamed Extra                  
+     99999        871         50 Lead            Ryan Renolds                   
+     99999        745        300 Lead            Betty White                    
+        93        222     555000 Lead            Optimal Fuel                   
+
+       MID        AID       PAID ROLE            NAMEINMOVIE                    
+---------- ---------- ---------- --------------- ---------------                
+        93        596     300000 Sidekick        Max Spood                      
+
+12 rows selected.
+
+SQL> SELECT * FROM DirectedBy;
+
+       DID        MID     SALARY                                                
+---------- ---------- ----------                                                
+     40157      86753      75000                                                
+     40157    1234567     567000                                                
+     58931      99999       8000                                                
+     12345      12345    1239080                                                
+     34212         93     130000                                                
+
+5 rows selected.
+
+SQL> SELECT * FROM Ratings;
+
+AGENCYNAME             MID     RATING                                           
+--------------- ---------- ----------                                           
+IMDB               1234567          3                                           
+Rotten Tomatoes    1234567          5                                           
+IMDB                 99999          1                                           
+Rotten Tomatoes      99999          2                                           
+IMDB                 86753          9                                           
+Rotten Tomatoes      86753          9                                           
+IMDB                 12345         10                                           
+Rotten Tomatoes      12345         10                                           
+IMDB                    93          7                                           
+Rotten Tomatoes         93          7                                           
+
+10 rows selected.
+
+SQL> --
+SQL> /*
+SQL> <The SQL query Include the following for each query:
+SQL> 1. A comment line stating the query number and the feature(s) it demonstrates
+SQL> 2. A comment line stating the query in English.
+SQL> 3. The SQL code for the query
+SQL> */
+SQL> --
+SQL> --1. A join involving at least four relations.
+SQL> --Lists all movies that have been based off of books, shows director and revenue
+SQL> SELECT M.title, D.dname, B.title, R.revenue
+  2  FROM Movie M, Director D, Book B, Revenue_History R, DirectedBy DB
+  3  WHERE M.mID = B.mID AND DB.dID = D.dID AND R.rID = M.mID AND DB.mID = M.mID
+  4  ORDER BY M.title;
+
+TITLE                               DNAME                                       
+----------------------------------- ---------------                             
+TITLE                                  REVENUE                                  
+----------------------------------- ----------                                  
+Dramatic Drama                      Nelly Horse                                 
+Forbaden Love                            18375                                  
+                                                                                
+The Amazing Spider-Man              Mr Wison                                    
+What an Amazing Spiderman!           100000000                                  
+                                                                                
+Too Fast Too Furious                Wruce Billis                                
+Need For Spood                        79870987                                  
+                                                                                
+
+3 rows selected.
+
+SQL> --
+SQL> --2. A self-join.
+SQL> --Finds pairs of actors that made the same amount of money on a movie
+SQL> SELECT A.aID, A2.aID
+  2  FROM ActedIn A, ActedIn A2
+  3  WHERE A.paid = A2.paid AND
+  4  			     A.mID = A2.mID AND
+  5  			     A.aID < A2.aID;
+
+       AID        AID                                                           
+---------- ----------                                                           
+       209        892                                                           
+
+1 row selected.
+
+SQL> --3. UNION, INTERSECT, and/or MINUS.
+SQL> --Find the movie ID and title of all movies that have revenue over $200,000 and have less then 1000 days in Theatre.
+SQL> SELECT M.mID, M.title
+  2  FROM Movie M, Revenue_History RA
+  3  WHERE RA.revenue > 200000
+  4  MINUS
+  5  SELECT M.mID, M.title
+  6  FROM Movie M, Revenue_History RA
+  7  WHERE M.mID = RA.rID AND RA.totalDaysInTheater > 1000;
+
+       MID TITLE                                                                
+---------- -----------------------------------                                  
+     12345 Cool title 2                                                         
+     86753 Pirate Movie                                                         
+   1234567 The Amazing Spider-Man                                               
+
+3 rows selected.
+
+SQL> --
+SQL> --4. SUM, AVG, MAX, and/or MIN.
+SQL> -- Max amount of revenue made by a movie in our database
+SQL> SELECT MAX(R.revenue)
+  2  FROM Revenue_History R;
+
+MAX(R.REVENUE)                                                                  
+--------------                                                                  
+     999999999                                                                  
+
+1 row selected.
+
+SQL> 
+SQL> --5. GROUP BY, HAVING, and ORDER BY, all appearing in the same query
+SQL> --List all Directors who have made more than one movie
+SQL> SELECT D.dname, COUNT(*)
+  2  FROM Director D, DirectedBy DB
+  3  WHERE D.dID = DB.dID
+  4  GROUP BY D.dname
+  5  HAVING COUNT(*) > 1
+  6  ORDER BY D.dname;
+
+DNAME             COUNT(*)                                                      
+--------------- ----------                                                      
+Mr Wison                 2                                                      
+
+1 row selected.
+
+SQL> --
+SQL> --6. A correlated subquery.
+SQL> --Finds all movies who made more than average despite running for less than the
+SQL> --average days in theater
+SQL> SELECT M.title
+  2  FROM Movie M, Revenue_History R
+  3  WHERE M.mID = R.rID AND R.revenue >
+  4  	     (SELECT AVG(revenue)
+  5  	      FROM Revenue_History
+  6  	      WHERE totalDaysInTheater < 200);
+
+TITLE                                                                           
+-----------------------------------                                             
+Cool title 2                                                                    
+
+1 row selected.
+
+SQL> --
+SQL> --7. A non-correlated subquery.
+SQL> --Finds all movies that are not based off of books
+SQL> SELECT M.title
+  2  FROM Movie M
+  3  WHERE M.mID NOT IN (SELECT B.mID
+  4  										     FROM Book B);
+
+TITLE                                                                           
+-----------------------------------                                             
+Pirate Movie                                                                    
+Cool title 2                                                                    
+
+2 rows selected.
+
+SQL> --
+SQL> --8. A relational DIVISION query.
+SQL> --
+SQL> SELECT M.title
+  2  FROM Movie M
+  3  WHERE NOT EXISTS((SELECT G.genre
+  4   FROM Genre G
+  5   WHERE G.genre = 'Action')
+  6   MINUS
+  7   (SELECT G.genre
+  8   FROM Genre G
+  9   WHERE G.genre = 'Action' AND
+ 10  			      G.mID = M.mID));
+
+TITLE                                                                           
+-----------------------------------                                             
+The Amazing Spider-Man                                                          
+Too Fast Too Furious                                                            
+
+2 rows selected.
+
+SQL> --
+SQL> --9. An outer join query.
+SQL> --Joins the Movie and Revenue_History tables
+SQL> SELECT M.title, R.revenue
+  2  FROM Movie M
+  3  FULL OUTER JOIN Revenue_History R ON M.mID = R.rID;
+
+TITLE                                  REVENUE                                  
+----------------------------------- ----------                                  
+The Amazing Spider-Man               100000000                                  
+Pirate Movie                           1345000                                  
+Dramatic Drama                           18375                                  
+Cool title 2                         999999999                                  
+Too Fast Too Furious                  79870987                                  
+
+5 rows selected.
+
+SQL> --
+SQL> --10. A RANK query.
+SQL> --Display the rank of movies with rating 10
+SQL> SELECT RANK(10) WITHIN GROUP
+  2  				     (ORDER BY RA.rating) "Rank of rating 10"
+  3  FROM Ratings RA;
+
+Rank of rating 10                                                               
+-----------------                                                               
+                9                                                               
+
+1 row selected.
+
+SQL> --11. A Top-N query.
+SQL> --List the movie ID, title of the four highest revenue movies.
+SQL> SELECT  mID, title
+  2  FROM (SELECT * FROM Movie M, Revenue_History R WHERE M.mID = R.rID ORDER BY R.revenue)
+  3  WHERE ROWNUM < 5;
+
+       MID TITLE                                                                
+---------- -----------------------------------                                  
+     99999 Dramatic Drama                                                       
+     86753 Pirate Movie                                                         
+        93 Too Fast Too Furious                                                 
+   1234567 The Amazing Spider-Man                                               
+
+4 rows selected.
+
+SQL> --
+SQL> --
+SQL> /*
+SQL> The insert/delete/update statements to test the enforcement of ICs
+SQL> Include the following items for every IC that you test (Important: see the next section titled Submit a final report regarding which ICs to test)
+SQL> 
+SQL> --
+SQL> - A comment line stating: Testing: <IC name>
+SQL> - A SQL INSERT, DELETE, or UPDATE that will test the IC.
+SQL> */
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> --
+SQL> SPOOL OFF

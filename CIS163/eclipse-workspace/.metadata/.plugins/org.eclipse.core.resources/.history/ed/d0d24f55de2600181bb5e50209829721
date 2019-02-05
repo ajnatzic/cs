@@ -1,0 +1,62 @@
+package chess;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+public class ChessPanel extends JPanel {
+
+	/* So Eclipse doesn't give a warning */
+	private static final long serialVersionUID = 1L;
+	
+	private JButton[][] board;
+	
+    private ChessModel model;
+    
+	private static final int SIZE = 8;
+
+	// declare other instance variables as needed
+	private ButtonListener buttonListener = new ButtonListener();
+
+	public ChessPanel() {
+		// complete this
+		setLayout(new GridLayout(SIZE, SIZE));
+		board = new JButton[SIZE][SIZE];
+		for (int row = 0; row < SIZE; row++) {
+			for (int col = 0; col < SIZE; col++) {
+				if ((row % 2 == 0 && col % 2 == 0) || (col % 2 != 0 && row % 2 != 0)) {
+					board[row][col] = new JButton("");
+					board[row][col].setBackground(Color.DARK_GRAY);
+					add(board[row][col]);
+				} else {
+					board[row][col] = new JButton("");
+					board[row][col].setBackground(Color.LIGHT_GRAY);
+					add(board[row][col]);
+				}
+
+				if (true) {
+					board[row][col].setForeground(null); // FIXME add chess piece image here, use multiple if statements
+				}
+
+				board[row][col].addActionListener(null);
+			}
+		}
+	}
+    
+    // method that updates the board
+    private void displayBoard() {
+      // complete this
+    }
+    
+    // add other helper methods as needed
+    // inner class that represents action listener for buttons
+    private class ButtonListener implements ActionListener {
+       public void actionPerformed(ActionEvent event) {
+         // complete this
+       }
+    }
+
+}

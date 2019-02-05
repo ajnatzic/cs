@@ -1,0 +1,53 @@
+package project2;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+//import viewPackage.*;
+
+public class ConnectFour {
+	public Boolean threeD;
+	
+	/**
+	 * Main method that creates and displays the frame for the game
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		String[] options = new String[] {"2D", "3D"};
+	    int response = JOptionPane.showOptionDialog(null, "Please select game type", "Connect Four",
+	        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+	        null, options, options[0]);
+	    if (response == 0)	// 2D selected
+	    	threeD = false;
+	    else				// 3D selected
+	    	threeD = true;
+	    
+		JMenuBar menus;
+		JMenu fileMenu;
+		JMenuItem quitItem;
+		JMenuItem gameItem;
+
+		JFrame frame = new JFrame("Connect Four");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		fileMenu = new JMenu("File");
+		quitItem = new JMenuItem("Quit");
+		gameItem = new JMenuItem("New game");
+
+		fileMenu.add(gameItem);
+		fileMenu.add(quitItem);
+		menus = new JMenuBar();
+		frame.setJMenuBar(menus);
+		menus.add(fileMenu);
+
+		ConnectFourPanel panel = new ConnectFourPanel(quitItem, gameItem);
+		frame.getContentPane().add(panel);
+
+		frame.setSize(800, 600);
+		frame.setVisible(true);
+	}
+}

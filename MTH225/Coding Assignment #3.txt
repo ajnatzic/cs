@@ -1,0 +1,32 @@
+#Coding Assignment #3
+#
+#Created by: AJ Natzic
+
+
+##Function Computation##
+#This function checks to see if a list of ordered pairs is a function by checking if any of the inputs are the same, 
+#implying that the same input gives 2 different outputs
+
+def checkFunction(f):	
+  inputs = []		#creates an empty list that will store the inputs called "inputs"
+  for a,b in f:		#splits up function "f" into ordered pair (a,b) and appends all of the inputs (a) to empty set "inputs"
+    inputs.append(a)
+  if len(inputs) != len(set(inputs)):	#if the length of inputs does not equal the length of the set of inputs then 
+											#"f" is not a function (there are repeats)
+    return False
+  return True				#otherwise, return true (there are no repeats in the inputs set)
+
+##Injective/Surjective##
+#This function checks to see if a function is injective by checking to see if there are any repeats
+#of elements used in the range of the function. If there are repeats, then an element from the codomain 
+#has been used more than once, making it NOT injective
+
+
+def injective(f):
+  outputs = []			#creates an empty list called "outputs"
+  for num in f:			#this for loop adds all the outputs of function "f" into the set of outputs
+    outputs.append(f[num])
+  if len(outputs) != len(set(outputs)):	#if the length of outputs does not equal the length of the set of outputs then 
+											#"f" is not injective (there are repeats in the range)
+    return False
+  return True				#otherwise, return True (there are no repeats in range of function, so "f" is injective)

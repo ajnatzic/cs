@@ -1,0 +1,60 @@
+#AJ Natzic
+#Coding Assignment number 5
+#Discrete Structures
+
+def listPairs(a):
+  			# this function creates a list of lists containing pairs
+  
+  newList = []
+ 				# creates a blank list which is where the result will go
+ 
+  
+  for e in a:
+ 				# goes through each element in a  
+    for elem in a:
+  			# goes through each element in a again (a nested for loop)
+      temp = []
+     			# creates a temporary list that will be used to hold the pairs we create 
+      if a.index(e) < a.index(elem):
+    # if the current index of 'e' is less than the current index of 'elem' then....    
+        temp.append(e)
+        		# append the first part of the pair to temp list
+        temp.append(elem)
+        	# append the second part of the pair to temp list
+        newList.append(temp)
+        
+  	# then append the whole temp list to the newList (the list of lists)
+
+  return newList
+
+			# return this list of lists that contain distinct pairs (no repeating elements and no "same pairs" e.g. ('a','b') and ('b','a'))
+
+
+def listTriples(a):
+ 			# this function creates a list of lists containing triples  
+  
+  newList = []
+ 				# creates a blank list which is where the result will go
+ 
+  			
+  for e in a:
+    			# goes through each element in a
+    for elem in a:
+     			# goes through each element in a again (nested for loop) 
+      for element in a:
+       		# goes through each element in a again (double nested for loop) 
+        temp = []
+        		# creates a temporary list that will be used to hold the triples we create
+        if a.index(e) < a.index(elem) and a.index(elem) < a.index(element):
+   # if current index of e (first loop of a) is less than current index of elem (second loop of a) AND the current index of elem (second loop of a) is less than the current index of element (third loop of a) then....       
+          temp.append(e)
+     		# append the first part to the triple list     
+          temp.append(elem)
+      	# append the second part to the triple list       
+          temp.append(element)
+      	# append the third part to the triple list       
+          newList.append(temp)
+        
+  # append the whole temp list to the newList 
+
+  return newList			#return this list of lists that contain distinct pairs (no repeating elements and no "same pairs" e.g. ('a','b','c') and ('c','b','a'))

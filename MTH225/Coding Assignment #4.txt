@@ -1,0 +1,42 @@
+#Coding Assignment #4
+#AJ Natzic
+#Discrete Structures
+
+def factorial(n):
+  #this function gives the factorial of a given natural number
+  if n == 0:    #if user input equals 0, then return 1       
+    return 1
+    
+  else:
+        
+    return n * factorial(n-1)   #uses recursion to keep multiplying every positive number below the given input until it reaches 0
+
+def permutations(n, k):
+ #this function determines how many permutations of 'k' objects can be made out of 'n' objects 
+  factnums = []
+ 	#creates an empty list 
+  answer = n
+  
+  	#creates a new variable called "answer" and is assigned the starting variable of input 'n'
+
+  if n - 1 == k:
+    	#if amount of objects 'k' is equal to n - 1 just do 'n' factorial 
+    return factorial(n)
+  
+  else:
+    		#otherwise, append all numbers below 'n' in range 1 through 'k' to the empty list 'factnums'
+    for i in range(1,k):
+      
+      factnums.append((n-i))
+    
+    
+  
+  for num in factnums:
+	#then multiply every number in list 'factnums' to 'answer'
+    answer = answer * num
+    
+  return answer
+  	#return the final result of 'answer'
+
+def combinations(n, k):	#this function determines the number of ways you can choose 'k' objects out of a set of 'n' objects
+  return permutations(n, k) / factorial(k)  #returns the permutations (all possible elements that can be picked in 'n') divided by factioral 'k', giving the number of possible combinations in 'n' 

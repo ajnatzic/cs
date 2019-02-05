@@ -1,0 +1,11 @@
+Ashley,F,4789,1999
+AJ,M,1000,1999
+Fred,M,123,2000
+Dodge,M,1234,2001
+Harry,M,788,2001
+Cynthia,F,432,2002
+Alfonzo,M,346,2002
+Mario,M,1873,2003
+Luigi,M,345,2003
+Bowser,M,538,2003
+Samantha,F,142,2004

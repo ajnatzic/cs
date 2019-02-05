@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=JunitTest1
+comment0.text=\r\n\ MAKE\ NO\ CHANGES\ TO\ THIS\ CODE\r\n\ This\ class\ is\ used\ for\ automatically\ testing\ Part\ 1\r\n\ of\ the\ MarketPlace\ simulation.\r\n
+comment1.params=
+comment1.target=void\ setUp()
+comment1.text=\r\n\ Instantiate\ a\ Market\ Place\ object.\r\n\r\n\ Called\ before\ every\ test\ case\ method.\r\n
+comment2.params=
+comment2.target=void\ testCustomer()
+comment2.text=\r\n\ Test\ Customer\ methods\r\n
+comment3.params=
+comment3.target=void\ testArrival()
+comment3.text=\r\n\ Test\ GVarrival\ methods\r\n
+comment4.params=
+comment4.target=void\ testDeparture()
+comment4.text=\r\n\ Test\ GVdeparture\ methods\r\n
+comment5.params=
+comment5.target=void\ testConstructor()
+comment5.text=\r\n\ Test\ initial\ values\ of\ the\ constructor\r\n
+comment6.params=
+comment6.target=void\ testSetParameters()
+comment6.text=\r\n\ Test\ set\ parameters\r\n
+comment7.params=
+comment7.target=void\ testPublicMethods()
+comment7.text=\r\n\ Confirm\ public\ methods\ exist\r\n
+numComments=8

@@ -1,0 +1,32 @@
+#Coding Assignment #10
+#AJ Natzic
+#Discrete Structures
+
+def booleanAlgebra(B):
+  
+  
+  
+  true_list = {0:B}
+  
+  
+
+  for n in range(0, 20):
+    
+    if true_list[n] == True:
+      
+      true_list[n + 1] = True
+      
+  
+
+  return true_list
+
+
+
+# If I run the program with B = True, then the program will return 20 "Trues" in the dictionary. 
+
+# If I run the program with B = False, then the program will give me a key error. Since key 0 = False, the boolean value
+# "True" will never be assigned to key 1. Therefore, when the program tries to call key 1, it cannot find it because 
+# the key does not exist, and the program terminates.
+
+# This relates to proof by induction because it shows that if the first value "0" is not True, then the 
+# preceding statements after will also all be false.

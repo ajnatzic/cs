@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=BabyNamesDatabase
+comment0.text=\r\n\ Searches\ Baby\ Name\ text\ file\ to\ do\ user\ tasks\r\n\r\n\ @author\ (AJ\ Natzic)\r\n\ @version\ (10-31-17)\r\n
+comment1.params=
+comment1.target=BabyNamesDatabase()
+comment10.params=filename
+comment10.target=void\ readBabyNameData(java.lang.String)
+comment2.params=
+comment2.target=int\ countAllNames()
+comment3.params=
+comment3.target=int\ countAllGirls()
+comment4.params=
+comment4.target=int\ countAllBoys()
+comment5.params=year
+comment5.target=BabyName\ mostPopularGirl(int)
+comment6.params=year
+comment6.target=BabyName\ mostPopularBoy(int)
+comment7.params=name
+comment7.target=java.util.ArrayList\ searchForName(java.lang.String)
+comment8.params=year
+comment8.target=java.util.ArrayList\ searchForYear(int)
+comment9.params=year
+comment9.target=java.util.ArrayList\ topTenNames(int)
+numComments=11

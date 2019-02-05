@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=BabyName
+comment0.text=\r\n\ Initializes\ variables\ and\ contains\ toString()\ class\r\n\r\n\ @author\ (AJ\ Natzic)\r\n\ @version\ (10-30-2017)\r\n
+comment1.params=n\ g\ count\ yr
+comment1.target=BabyName(java.lang.String,\ boolean,\ int,\ int)
+comment10.params=
+comment10.target=java.lang.String\ toString()
+comment11.params=args
+comment11.target=void\ main(java.lang.String[])
+comment2.params=other
+comment2.target=int\ compareTo(java.lang.Object)
+comment3.params=
+comment3.target=boolean\ isFemale()
+comment4.params=
+comment4.target=java.lang.String\ getName()
+comment5.params=
+comment5.target=int\ getCount()
+comment6.params=
+comment6.target=int\ getYear()
+comment7.params=n
+comment7.target=void\ setName(java.lang.String)
+comment8.params=count
+comment8.target=void\ setCount(int)
+comment9.params=yr
+comment9.target=void\ setYear(int)
+numComments=12
