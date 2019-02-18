@@ -10,3 +10,5 @@ This repository serves as a collection of all my Computer Science work done at G
   - This class is System-Level Programming and Utilities. It involves learning C and C++ programming and the linux operating system. 
 - CIS 343
   - This class is Structure of Programming Languages. It involves learning multiple langauges, including lisp, javascript, python, C++, and more. I also wrote a research paper on the Ruby programming languages which is in this repository. 
+- CIS 353
+  - This class is Databases. It involves rigorious use of Oracle SQL and involved creating our own unique database in small development teams. Most of the class was dedicated towards creating our own database (more than half the semester). 
