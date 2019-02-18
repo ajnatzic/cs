@@ -12,3 +12,7 @@ This repository serves as a collection of all my Computer Science work done at G
   - This class is Structure of Programming Languages. It involves learning multiple langauges, including lisp, javascript, python, C++, and more. I also wrote a research paper on the Ruby programming languages which is in this repository. 
 - CIS 353
   - This class is Databases. It involves rigorious use of Oracle SQL and involved creating our own unique database in small development teams. Most of the class was dedicated towards creating our own database (more than half the semester). 
+- MTH 225
+  - This class is Discrete Structures I. A math class, it invovled understanding discrete math algorithms relating to computer science. This class consisted mostly of difficult homeworks and small programming assignments. 
+- MTH 325
+  - This class is Discrete Structures II. This involved a more in depth look at the algorithms we learned, as well as emphasis on trees and searching. Besides difficult homeworks, this class also invovled making a Python final project which can be seen in this repository. 
