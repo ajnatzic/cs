@@ -13,7 +13,7 @@ decrypt:
 compare:
 	diff -s datap rdata
 clean:
-	rm -f *.o p2 *.out *.bak
+	rm -f *.o p2 cipher rdata
 
 view:
 	vim ./datap

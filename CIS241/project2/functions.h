@@ -20,3 +20,8 @@ void initializeDecryptArray(char encrypt[], char decrypt[]);
 // pass the encrypt array to parameter substitute if encryption is intended
 // pass the decrypt array to parameter substitute if decryption is intended
 void processInput(FILE * inf, FILE * outf, char substitute[]);
+
+/**
+ * Actually encrypts/decrypts the char values. This function was taken from lab 3
+ * */
+char encrypt(char ch, int k);
