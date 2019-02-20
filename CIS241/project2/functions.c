@@ -9,19 +9,28 @@
  *  remove duplicate characters in array word and return the resulting string
  *  */
 char * removeDuplicates(char word []){
-	char tempArr[100];
-	/** used for iterating through tempArr */
-	int j = 0;
-	for(i = 0; i < (sizeof(*word) - 1); i++){
-		if(strchr(tempArr, word[i]) >= 0)
-			strcpy(&word[i], &word[i + 1]);
-		else{
-			tempArr[j] = word[i];
-			j++;
-		}
-	}
-	
-	return word;
+   // Used as index in the modified string 
+   int index = 0;    
+     
+   // Traverse through all characters 
+   for (i = 0; word[i] != 0; i++) { 
+     // Check if str[i] is present before it   
+     int j;   
+     for (j=0; j<i; j++)  
+        if (word[i] == word[j]) 
+           break; 
+       
+     // If not present, then add it to 
+     // result. 
+     if (j == i) 
+        word[index++] = word[i]; 
+   } 
+   
+   // We know that the cipher must only have 26 letters. So if there are more than remove them
+   for(i = 26;i < strlen(word); i++)
+	   word[i] = 0;
+
+   return word; 
 }
 
 // search the first num characters in array charArray for character target
