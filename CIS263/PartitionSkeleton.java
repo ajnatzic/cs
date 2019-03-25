@@ -21,7 +21,7 @@ public class PartitionSkeleton {
     private static boolean evaluate(Set <Integer> part1,
 				    Set <Integer> part0) {
 	
-	// I learned how to sum all Integers in a set from a stream here: https://www.javaquery.com/2016/10/how-to-sum-values-from-list-set-and-map.html
+	// I learned how to sum all Integers in a set here: https://www.javaquery.com/2016/10/how-to-sum-values-from-list-set-and-map.html
     	Integer integerSum1 = part1.stream().mapToInt(Integer::intValue).sum();
 	Integer integerSum0 = part0.stream().mapToInt(Integer::intValue).sum();
 	
