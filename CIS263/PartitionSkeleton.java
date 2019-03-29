@@ -26,7 +26,7 @@ public class PartitionSkeleton {
 	Integer integerSum0 = part0.stream().mapToInt(Integer::intValue).sum();
 	
 	// If the sums are the same return true
-	if(integerSum1 == integerSum0){
+	if(integerSum1.equals(integerSum0)){
 		return true;
 	}
 	// Otherwise, return false
