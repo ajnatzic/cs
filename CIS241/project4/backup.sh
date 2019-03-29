@@ -2,7 +2,9 @@
 
 ####################################
 #
-# Backup to NFS mount script.
+# Linux backup bash script
+#
+# Author: AJ Natzic
 #
 ####################################
 
@@ -13,21 +15,25 @@ backup_files=""
 # Where to backup to.
 dest="/$HOME/.backup"
 
+# These are option switches. They are set to true if the user inputs these options
 listBool=false
 numBool=false
 helpBool=false
+
+# This is the help menu
 helpMenu="The usage of this command is: backup [options] source-files
 This backs up inputted source-files to ~/.backup
 -l: List files in ~/.backup
 -n: Display number of files in ~/.backup and the storage they consume
 --help: Display this menu"
 
-#If no options or filenames inputted
+# If no options or filenames inputted display a message and exit
 if [ -z "$1" ]; then
 	echo "The usage of this command is: backup [options] source-files"
 	exit
 fi
 
+# Check input line for options and files
 while [ -n "$1" ]; do 
 	case "$1" in
 		-l) listBool=true;;
@@ -47,18 +53,13 @@ while [ -n "$1" ]; do
 	shift
 done
 
-
+# If backup directory does not exist, create it
 if [ ! -e "$dest" ]; then
 	echo "Creating backup directory."
 	mkdir $dest
 fi
 
-# Create archive filename.
-day=$(date +%A)
-hostname=$(hostname -s)
-archive_file="$hostname-$day"
-
-# Print start status message.
+# Print start status message
 if [ ! -z "$backup_files" ]; then
 echo "Backing up $backup_files to $dest..."
 echo
@@ -66,6 +67,7 @@ echo
 #Turn backup_files string into an array we can sort through
 backup_files_arr=($backup_files)
 
+# Sort through backup files and back them up by copying them to $dest
 for i in ${backup_files_arr[@]}; do
 	echo "Backing up: $i"
 	if [[ -d $i ]]; then
@@ -80,7 +82,6 @@ echo "Backup Complete"
 else
 	echo "No files to backup."
 fi
-# Print end status message.
 
 # Long listing of files in $dest to check file sizes.
 if [ "$listBool" = true ]; then
@@ -92,6 +93,7 @@ if [ "$listBool" = true ]; then
 	echo
 fi
 
+# States how many files are in $dest and how much space they use
 if [ "$numBool" = true ]; then
 	echo
 	echo "=========================================================="
