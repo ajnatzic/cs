@@ -13,7 +13,7 @@
 backup_files=""
 
 # Where to backup to.
-dest="/$HOME/.backup"
+dest="$HOME/.backup"
 
 # These are option switches. They are set to true if the user inputs these options
 listBool=false
@@ -97,7 +97,7 @@ fi
 if [ "$numBool" = true ]; then
 	echo
 	echo "=========================================================="
-	numFiles=$(ls -1 | wc -l)
+	numFiles=$(ls -1 $dest | wc -l)
 	echo "Number of files in $dest: $numFiles"
 	
 	du -sc $dest
