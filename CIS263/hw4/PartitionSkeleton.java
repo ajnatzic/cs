@@ -24,7 +24,7 @@ public class PartitionSkeleton {
 	// I learned how to sum all Integers in a set here: https://www.javaquery.com/2016/10/how-to-sum-values-from-list-set-and-map.html
     	Integer integerSum1 = part1.stream().mapToInt(Integer::intValue).sum();
 	Integer integerSum0 = part0.stream().mapToInt(Integer::intValue).sum();
-	
+
 	// If the sums are the same return true
 	if(integerSum1.equals(integerSum0)){
 		return true;
