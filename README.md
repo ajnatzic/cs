@@ -11,12 +11,12 @@ This repository serves as a collection of all my Computer Science work done at G
   - From this class, I learned C and C++ programming and the linux operating system. 
 - CIS 343 - Structure of Programming Languages
   - I learned multiple langauges, including lisp, javascript, python, C++, and more from this class. I also wrote a research paper on the Ruby programming languages which is in this repository. 
-- CIS 351 
-  - TODO
+- CIS 351 - Computer Organization and Assembly Language
+  - An introduction class into assembly language and combinational logic. I learned how higher level languages all translate down to assembly code and how the system executes and interprets this assembly code.
 - CIS 353 - Databases
   - Involves rigorious use of Oracle SQL and involved creating our own unique database in small development teams. Most of the class was dedicated towards creating our own database (more than half the semester). 
-- CIS 452
-  - TODO
+- CIS 452 - Operating Systems Concepts
+  - A further exploration of assembly code and process management.
 - MTH 225 - Discrete Structures I
   - A math class, it invovled understanding discrete math algorithms relating to computer science. This class consisted mostly of difficult homeworks and small programming assignments. 
 - MTH 325 - Discrete Structures II
