@@ -32,28 +32,30 @@ public class PartitionSkeleton {
     }
     
     static boolean backtrack(Set < Integer > s0,Set < Integer > s1,int n) {
+	
+	// If we have reached a leaf on the tree, evaluate the two sets.
 	if(s0.size() + s1.size() == n){
 		//System.out.println("Solution found: " + s0.toString() + s1.toString());
 		return evaluate(s0, s1);
 	}
-	    int element = s0.size() + s1.size();
-	    s0.add(element);
-	    if(backtrack(s0,s1,n)){
-		    return true;
-	    }
-	    else{
-		    s0.remove(element);
-		    s1.add(element);
-		    if(backtrack(s0,s1,n)){
-			    return true;
-		    }
-		    else{
+	 
+	int element = s0.size() + s1.size();
+	s0.add(element);
+	if(backtrack(s0,s1,n)){
+		return true;
+	}
+	else{
+		s0.remove(element);
+		s1.add(element);
+		if(backtrack(s0,s1,n)){
+			return true;
+		}
+		else{
 			s1.remove(element);
 		    	return false;
-		    }	
-
-    }
-    }
+		}	
+    	}
+}
     public static void main(String args[]) {
 	Scanner scanner = new Scanner(System.in);
 	int n = scanner.nextInt();
@@ -66,7 +68,7 @@ public class PartitionSkeleton {
 	TreeSet < Integer > solution0s = new TreeSet< Integer > ();
         solutionFound = backtrack(solution0s,solution1s,n);
 	if (solutionFound) {
-	
+		System.out.println("Solution found.");	
 	}
 	else {
 	    System.out.println("No solution was found.");
